@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "494617010075",
+    "firebase_url": "https://nutricar-app.firebaseio.com",
+    "project_id": "nutricar-app",
+    "storage_bucket": "nutricar-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494617010075:android:40c538cd575a74f62e4b3e",
+        "android_client_info": {
+          "package_name": "hackathon.nutricar.nutricar_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494617010075-c38964a7b469f9a3kaqeo5jndlmlsq7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa1P43JPcj6aS-mB_ns4PtHOGg4AAbnj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494617010075-c38964a7b469f9a3kaqeo5jndlmlsq7r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "494617010075-g8134fje4ej4oab5t8gp55kvaj8mq8kg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "hackathon.nutricar.nutricarApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
