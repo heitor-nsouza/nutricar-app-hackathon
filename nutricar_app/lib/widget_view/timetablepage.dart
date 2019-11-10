@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nutricar_app/models/scheduleModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class TimeTablePage extends StatefulWidget {
-
   TimeTablePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -29,22 +27,22 @@ class _TimeTablePageState extends State<TimeTablePage> {
   List<String> _lstExample = ['Teste1', 'Teste2'];
   List<scheduleModel> _lstScheduleRegister = new List<scheduleModel>();
 
-
-
-  _TimeTablePageState()
-  {
-    /*scheduleModel _sm = new scheduleModel(floor: '5o andar',hours: '12:00-13:00  16:00-17:00  20:00-21:00');
+  _TimeTablePageState() {
+    scheduleModel _sm = new scheduleModel(
+        floor: '5o andar', hours: '12:00-13:00  16:00-17:00  20:00-21:00');
     _lstScheduleRegister.add(_sm);
-     _sm = new scheduleModel(floor: '5o andar',hours: '12:00-13:00  16:00-17:00  20:00-21:00');
+    _sm = new scheduleModel(
+        floor: '5o andar', hours: '12:00-13:00  16:00-17:00  20:00-21:00');
     _lstScheduleRegister.add(_sm);
-     _sm = new scheduleModel(floor: '5o andar',hours: '12:00-13:00  16:00-17:00  20:00-21:00');
-    _lstScheduleRegister.add(_sm);*/
+    _sm = new scheduleModel(
+        floor: '5o andar', hours: '12:00-13:00  16:00-17:00  20:00-21:00');
+    _lstScheduleRegister.add(_sm);
 //    getData();
   }
 
   @override
   void initState() {
-    getData();
+    // getData();
     super.initState();
   }
 
@@ -63,52 +61,44 @@ class _TimeTablePageState extends State<TimeTablePage> {
   this method adds elements to the schedule list of NutriCar
    */
 
+  void loadFloorSchedule(DocumentSnapshot document) {
+    String floor = document.data['number'].toString();
+    String hours = '';
+    List periods = List.from(document.data['periods']);
 
-  void loadFloorSchedule(DocumentSnapshot document)
-  {
-      String floor = document.data['number'].toString();
-      String hours = '';
-      List periods =  List.from(document.data['periods']);
-
-      periods.forEach((period)
-      {
-        //hours += period['start_time'].toString() + '-' + period['end_time'].toString()+ ' ';
-        hours = hours + period['start_time'] + '-' + period['end_time'] + ' ';
-      });
-      scheduleModel _sm = new scheduleModel(floor: floor,hours: hours);
-      _lstScheduleRegister.add(_sm);
-
-
+    periods.forEach((period) {
+      //hours += period['start_time'].toString() + '-' + period['end_time'].toString()+ ' ';
+      hours = hours + period['start_time'] + '-' + period['end_time'] + ' ';
+    });
+    scheduleModel _sm = new scheduleModel(floor: floor, hours: hours);
+    _lstScheduleRegister.add(_sm);
   }
 
-  void getData()
-  {
+  void getData() {
     //_lstScheduleRegister.clear();
     final stream = Firestore.instance
         .collection('floors')
         .getDocuments()
         .then((QuerySnapshot snapshot) {
-           snapshot.documents.forEach((f) {
-           loadFloorSchedule(f);
+      snapshot.documents.forEach((f) {
+        loadFloorSchedule(f);
 
-             //print('Andar:  ' + f.data["number"].toString());
-              //print('${f.data}');
-           });
-        });
+        //print('Andar:  ' + f.data["number"].toString());
+        //print('${f.data}');
+      });
+    });
   }
-  void _addItemsToList(){
+
+  void _addItemsToList() {
     //_lstScheduleRegister = new List<scheduleModel>();
     setState(() {
-
-     /* List<String> aux = ['12:00-13:00','16:00-17:00', '20:00-21:00' ];
+      /* List<String> aux = ['12:00-13:00','16:00-17:00', '20:00-21:00' ];
       scheduleModel _sm = new scheduleModel(floor: '5o andar',hours: '12:00-13:00  16:00-17:00  20:00-21:00');
       _lstScheduleRegister.add(_sm);*/
 
       getData();
-
     });
-;
-
+    ;
   }
 
   @override
@@ -119,45 +109,35 @@ class _TimeTablePageState extends State<TimeTablePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return MaterialApp(
+      home: Material(
+        child: new ListView.builder(
+            itemCount: _lstScheduleRegister.length,
+            itemBuilder: (BuildContext ctxt, int Index) {
+              return createTimeTableWidget(_lstScheduleRegister, Index);
+            }),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: new ListView.builder
-                (
-                  itemCount: _lstScheduleRegister.length,
-                  itemBuilder: (BuildContext ctxt, int Index) {
-                    return new  Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Row(
-                          children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.all(20),
-                              child: Center(child:Text(_lstScheduleRegister[Index].floor, style: TextStyle(fontWeight: FontWeight.bold))),
-
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(5),
-                              child: Center(child: new Text(_lstScheduleRegister[Index].hours)),
-
-                            )
-                          ]),
-                      color: (Index % 2 == 0) ? Colors.grey[300] : Colors.white,
-                    );
-                  }
-          ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addItemsToList,
-        tooltip: 'Atyualizar',
-        child: Icon(Icons.refresh),
-      )  // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
-
+  }
+  
+  static Widget createTimeTableWidget(List<scheduleModel> _lstScheduleRegister,  int Index){
+    return  Container(
+      padding: const EdgeInsets.all(0),
+      child: Row(children: <Widget>[
+        Container(
+          padding: const EdgeInsets.all(0),
+          child: Center(
+              child: Text(_lstScheduleRegister[Index].floor,
+                  style: TextStyle(fontWeight: FontWeight.bold))),
+        ),
+        Container(
+          padding: const EdgeInsets.all(0),
+          child: Center(
+              child: new Text(_lstScheduleRegister[Index].hours)),
+        )
+      ]),
+      color: (Index % 2 == 0) ? Colors.grey[300] : Colors.white,
+    );
   }
 }

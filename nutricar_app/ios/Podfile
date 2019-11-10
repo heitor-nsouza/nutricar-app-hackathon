@@ -60,6 +60,8 @@ target 'Runner' do
     File.symlink(p[:path], symlink)
     pod p[:name], :path => File.join(symlink, 'ios')
   }
+  
+  pod 'Firebase/Core'
 end
 
 # Prevent Cocoapods from embedding a second Flutter framework and causing an error with the new Xcode build system.
@@ -72,3 +74,8 @@ post_install do |installer|
     end
   end
 end
+
+# add the Firebase pod for Google Analytics
+
+# add pods for any other desired Firebase products
+# https://firebase.google.com/docs/ios/setup#available-pods
