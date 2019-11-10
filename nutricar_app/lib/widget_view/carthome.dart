@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:nutricar_app/main.dart';
 import 'package:nutricar_app/widget_view/productlist.dart';
 
 class CartHomePage extends StatefulWidget {
@@ -20,7 +22,6 @@ class CartHomePage extends StatefulWidget {
 }
 
 class _CartHomePageState extends State<CartHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -31,78 +32,125 @@ class _CartHomePageState extends State<CartHomePage> {
     // than having to individually change instances of widgets.
 
     return MaterialApp(
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-            appBar: AppBar(
-              bottom: TabBar(
-                tabs: <Widget>[
-                  Tab(icon: Icon(Icons.ac_unit), text: 'Cliente',),
-                  Tab(icon: Icon(Icons.ac_unit), text: 'Loja',)
-                ],
-              ),
-            ),
-            body: TabBarView(
-              children: <Widget>[headerInfo, ProductListPage()],
-            )
+      home: Material(
+        child: Column(
+          children: <Widget>[Expanded(child: headerInfo(context)), divider],
         ),
       ),
     );
   }
 
-  static Widget  divider = Container(
+  static Widget divider = Container(
       child: Row(
-        children: <Widget>[
-          Expanded(
-              child: Divider(
-                color: Colors.black,
-              ))
-        ],
-      ));
+    children: <Widget>[
+      Expanded(
+          child: Divider(
+        color: Colors.black,
+      ))
+    ],
+  ));
 
-  Widget headerInfo = Container(
-    padding: const EdgeInsets.all(32),
-    child: Row(
-      children: [
-        Expanded(
-          /*1*/
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /*2*/
-              Container(
-                padding: const EdgeInsets.only(top: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Nutricar está no:',
-                      style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-                    )
-                  ],
-                ),
+  Widget headerInfo(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 64),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 32),
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text('Boa Tarde, Pessoal!!',
+                      style: TextStyle(color: hexToColor('#2DA901'),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold)),
+                ],
               ),
-              Container(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text('5º',
-                            style:
-                            TextStyle(color: Colors.grey[500], fontSize: 64)),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0, top: 32.0),
-                          child: Text('Até 18',
-                              style:
-                              TextStyle(color: Colors.red[500], fontSize: 18)),
-                        ),
-                      ])),
-              divider
-            ],
+            ),
           ),
-        ),
-        /*3*/
-      ],
-    ),
-  );
+
+
+          /*3*/
+          Padding(
+            padding: EdgeInsets.only(top: 0),
+            child: Stack(
+              children: <Widget>[
+
+
+                Padding(
+                  padding: EdgeInsets.only(top: 52, left: 32),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Atualmente está\n no andar nº',
+                            style: TextStyle(color: Colors.black,
+                                fontSize: 24
+                                , fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(top: 132),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Container(
+                          color: hexToColor('#2DA901'),
+                          width: MediaQuery.of(context).size.width,
+                          height: 240,
+                          child: Text('',
+                              style: TextStyle(
+                                  fontSize: 128, color: Colors.white)),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 124, left: 32),
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text('6',
+                            style:
+                                TextStyle(fontSize: 128, color: Colors.white))
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 260, left: 32),
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text('Até 15:20',
+                            style: TextStyle(fontSize: 32, color: Colors.white))
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                    child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Image.asset('assets/icons/cart.png',
+                        width: 215, height: 366),
+                  ],
+                ))
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+  }
 }
