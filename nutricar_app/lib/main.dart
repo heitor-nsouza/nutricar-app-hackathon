@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutricar_app/components/carthome.dart';
+import 'package:nutricar_app/widget_view/carthome.dart';
 
 void main() => runApp(MyApp());
 

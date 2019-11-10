@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutricar_app/components/productlist.dart';
+import 'package:nutricar_app/widget_view/productlist.dart';
 
 class CartHomePage extends StatefulWidget {
   CartHomePage({Key key, this.title}) : super(key: key);
