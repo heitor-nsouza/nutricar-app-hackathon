@@ -16,6 +16,7 @@ class FloorList extends StatelessWidget {
           default:
             int Index = 0;
             return new ListView(
+              shrinkWrap: true,
               children: snapshot.data.documents.map((DocumentSnapshot document) {
                 String hours = '';
                 Index ++;
@@ -26,8 +27,6 @@ class FloorList extends StatelessWidget {
                   hours = hours + period['start_time'] + '-' + period['end_time'] + '   ';
                 });
                 return new Container(
-                  width: 100,
-                    height: 100,
                     color: (Index % 2 == 0) ? Colors.grey[300] : Colors.white,
 
                   child: new ListTile(

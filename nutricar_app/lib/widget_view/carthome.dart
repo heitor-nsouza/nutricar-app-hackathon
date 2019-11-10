@@ -80,112 +80,85 @@ class _CartHomePageState extends State<CartHomePage> {
             padding: EdgeInsets.only(top: 0),
             child: Stack(
               children: <Widget>[
-
-                Column(
+                Padding(
+                  padding: EdgeInsets.only(top: 52, left: 32),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Atualmente está\n no andar nº',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 132),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Container(
+                          color: hexToColor('#2DA901'),
+                          width: MediaQuery.of(context).size.width,
+                          height: 220,
+                          child: Text('',
+                              style: TextStyle(
+                                  fontSize: 128, color: Colors.white)),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 124, left: 32),
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text('6',
+                            style:
+                                TextStyle(fontSize: 128, color: Colors.white))
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 260, left: 32),
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text('Até 15:20',
+                            style: TextStyle(
+                                fontSize: 32,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold))
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                    child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Container(
-                      child: Container(
-                          child: FloorList()
-                      ),
-                    )
+                    Image.asset('assets/icons/cart.png',
+                        width: 215, height: 366),
                   ],
+                )),
+                Padding(
+                  padding: EdgeInsets.only(top: 300),
+                  child: SizedBox(
+                    height: 360,
+                    child: FloorList(),
+                  ),
                 )
-//                Padding(
-//                  padding: EdgeInsets.only(top: 52, left: 32),
-//                  child: Container(
-//                    child: Row(
-//                      mainAxisAlignment: MainAxisAlignment.start,
-//                      children: <Widget>[
-//                        Text('Atualmente está\n no andar nº',
-//                            style: TextStyle(
-//                                color: Colors.black,
-//                                fontSize: 24,
-//                                fontWeight: FontWeight.bold)),
-//                      ],
-//                    ),
-//                  ),
-//                ),
-//                Padding(
-//                  padding: EdgeInsets.only(top: 132),
-//                  child: Column(
-//                    children: <Widget>[
-//                      Container(
-//                        child: Container(
-//                          color: hexToColor('#2DA901'),
-//                          width: MediaQuery.of(context).size.width,
-//                          height: 220,
-//                          child: Text('',
-//                              style: TextStyle(
-//                                  fontSize: 128, color: Colors.white)),
-//                        ),
-//                      )
-//                    ],
-//                  ),
-//                ),
-//                Padding(
-//                  padding: EdgeInsets.only(top: 124, left: 32),
-//                  child: Container(
-//                    child: Row(
-//                      children: <Widget>[
-//                        Text('6',
-//                            style:
-//                                TextStyle(fontSize: 128, color: Colors.white))
-//                      ],
-//                    ),
-//                  ),
-//                ),
-//                Padding(
-//                  padding: EdgeInsets.only(top: 260, left: 32),
-//                  child: Container(
-//                    child: Row(
-//                      children: <Widget>[
-//                        Text('Até 15:20',
-//                            style: TextStyle(
-//                                fontSize: 32,
-//                                color: Colors.white,
-//                                fontWeight: FontWeight.bold))
-//                      ],
-//                    ),
-//                  ),
-//                ),
-//                Container(
-//                    child: Row(
-//                  mainAxisSize: MainAxisSize.max,
-//                  mainAxisAlignment: MainAxisAlignment.end,
-//                  children: <Widget>[
-//                    Image.asset('assets/icons/cart.png',
-//                        width: 215, height: 366),
-//                  ],
-//                )),
-//                Padding(
-//                  padding: EdgeInsets.only(top: 300),
-//                  child: FloorList(),
-//                )
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  static Widget createTimeTableWidget(List<scheduleModel> _lstScheduleRegister,  int Index){
-    return  Container(
-      padding: const EdgeInsets.all(0),
-      child: Row(children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(0),
-          child: Center(
-              child: Text(_lstScheduleRegister[Index].floor,
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-        ),
-        Container(
-          padding: const EdgeInsets.all(0),
-          child: Center(
-              child: new Text(_lstScheduleRegister[Index].hours)),
-        )
-      ]),
-      color: (Index % 2 == 0) ? Colors.grey[300] : Colors.white,
     );
   }
 
